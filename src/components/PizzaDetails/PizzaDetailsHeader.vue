@@ -1,7 +1,7 @@
 <template>
     <div class="pizza-details--title">
         <h2>{{ pizzaName }}</h2>
-        <span>{{ sizeCaption }}</span>
+        <span>{{ sizeCaption || firstSize }}</span>
     </div>
 </template>
 
@@ -10,6 +10,11 @@
         props: {
             pizzaName: String,
             sizeCaption: String
+        },
+        computed: {
+            firstSize() {
+                return this.$store.getters['pizzas/getSizes'][0].name;
+            }
         }
     }
 </script>

@@ -1,12 +1,14 @@
 <template>
     <div class="pizza-details--price my-4">
-        <v-alert dense text color="primary">Total price: 500$</v-alert>
+        <v-alert dense text color="primary">Total price: {{ price }}</v-alert>
     </div>
 </template>
 
 <script>
     export default {
-        
+        props: {
+            price: String
+        }
     }
 </script>
 
