@@ -5,5 +5,13 @@ export default {
 
     getCategories(state) {
         return state.categories;
+    },
+
+    getSizes(state) {
+        return state.sizes;
+    },
+    
+    getDetails(state) {
+        return state.details;
     }
 }

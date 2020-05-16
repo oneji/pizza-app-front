@@ -7,8 +7,12 @@ export default {
         let { data } = await api.getPizzas();
         
         if(data.ok) {
-            commit(mutationTypes.SET_CATEGORIES, data.categories);
-            commit(mutationTypes.SET_PIZZAS, data.pizzas);
+            commit(mutationTypes.SET_PIZZA_STATE, {
+                items: data.pizzas,
+                sizes: data.sizes,
+                categories: data.categories,
+                details: {}
+            });
         }
     },
 
@@ -17,6 +21,14 @@ export default {
 
         if(data.ok) {
             commit(mutationTypes.SET_PIZZAS, data.pizzas);
+        }
+    },
+
+    async getById({ commit }, pizzaId) {
+        let { data } = await api.getById(pizzaId);
+
+        if(data.ok) {
+            commit(mutationTypes.SET_DETAILS, data.pizza);
         }
     }
 }

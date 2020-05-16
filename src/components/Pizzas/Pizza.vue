@@ -2,23 +2,27 @@
     <article class="pizza-item">
         <main>
             <div class="pizza-item--img">
-                <img src="@/assets/pizza.jpg" alt="">
+                <img src="@/assets/pizza.jpg" :alt="item.name">
             </div>
             <h2 class="pizza-item--title">{{ item.name }}</h2>
 
-            <div class="pizza-item--size">
+            <div class="pizza-item--description" v-if="item.description !== null">
                 <v-alert dense text color="primary" class="mb-0">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    {{ item.description }}
                 </v-alert>
             </div>
         </main>
         <footer class="pizza-item--footer">
             <div class="pizza-item--price">
-                <span>500$</span>
+                <span>st. {{ getMinPrice }} $</span>
             </div>
 
             <div class="pizza-item--add-btn">
-                <v-btn color="primary" outlined @click="addToCart">Add to cart</v-btn>
+                <v-btn 
+                    color="primary" 
+                    outlined 
+                    @click="addToCart"
+                    :loading="loading === item.id">Add to cart</v-btn>
             </div>
         </footer>
     </article>
@@ -29,18 +33,32 @@
         props: {
             item: {
                 type: Object,
-                required: true
+                required: true,
+            },
+            loading: {
+                type: Number,
+                default: false
+            }
+        },
+        computed: {
+            getMinPrice() {
+                let minPriceObj = this.item.pizza_sizes.filter(size => {
+                    return size.name.toLowerCase() === 'small'
+                })[0];
+
+                if(minPriceObj === undefined) return 0;
+                
+                else {
+                    return minPriceObj.pivot.price_usd;
+                }
             }
         },
         data: () => ({
-            loading: false,
             size: undefined
         }),
-
         methods: {
             addToCart() {
-                this.loading = true;
-                this.$emit('add-to-cart', this.item.id);
+                this.$emit('show-details', this.item.id);
             },
         }
     }

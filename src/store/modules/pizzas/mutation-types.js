@@ -1,2 +1,5 @@
 export const SET_PIZZAS = 'setPizzas'
 export const SET_CATEGORIES = 'setCategories'
+export const SET_SIZES = 'setSizes'
+export const SET_DETAILS = 'setDetails'
+export const SET_PIZZA_STATE = 'setPizzaState'

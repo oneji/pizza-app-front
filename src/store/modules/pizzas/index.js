@@ -7,7 +7,8 @@ const authModule = {
     state: {
         items: [],
         sizes: [],
-        categories: []
+        categories: [],
+        details: {}
     },
 
     getters,

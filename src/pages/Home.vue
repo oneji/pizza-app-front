@@ -2,41 +2,40 @@
     <div>
         <Loading :show="loading"/>
         <v-row>
-            <v-col xs="12" sm="8" md="9" lg="9">
+            <v-col sm="8" md="9" lg="9">
                 <Categories @change="getByCategory" />
             </v-col>
-
-            <v-col xs="12" sm="4" md="3" lg="3">
-                <v-select
-                    :items="sortBy"
-                    filled
-                    dense
-                    label="Sort by"
-                    hide-details
-                ></v-select>
-            </v-col>
         </v-row>
+
         <v-row v-if="!loading">
-            <v-col v-for="pizza in pizzas" :key="pizza.id" xs="6" sm="6" md="3" lg="3">
+            <v-col v-for="pizza in pizzas" :key="pizza.id" sm="6" md="3" lg="3">
                 <Pizza 
                     :item="pizza"
-                    @add-to-cart="addPizzaToCart" 
+                    :loading="PDloading"
+                    @show-details="showPizzaDetails"
                 />
             </v-col>
         </v-row>
+
+        <PizzaDetailsDialog 
+            :show="showPD"
+            @close="showPD = false"
+            @add-to-cart="addPizzaToCart" />
     </div>
 </template>
 
 <script>
     import Loading from '@/components/Loading'
     import Categories from '@/components/Pizzas/Categories'
-    import Pizza from '@/components/Pizza'
+    import Pizza from '@/components/Pizzas/Pizza'
+    import PizzaDetailsDialog from '@/components/PizzaDetails/PizzaDetailsDialog'
 
     export default {
         components: {
             Loading,
             Categories,
-            Pizza
+            Pizza,
+            PizzaDetailsDialog
         },
         computed: {
             pizzas() {
@@ -46,19 +45,25 @@
         data() {
             return {
                 loading: true,
-                amenities: 0,
-                sortBy: [ 'Name', 'Price' ]
+                showPD: false,
+                PDloading: null
             }
         },
         methods: {
-            addPizzaToCart(itemId) {
-                console.log('[addPizzaToCart]', itemId);
+            addPizzaToCart(data) {
+                console.log('[addPizzaToCart]', data);
             },
-
             getByCategory(categoryId) {
                 this.loading = true;
                 this.$store.dispatch('pizzas/getByCategory', categoryId)
                     .then(() => this.loading = false);
+            },
+            showPizzaDetails(pizzaId) {
+                this.PDloading = pizzaId;
+                this.$store.dispatch('pizzas/getById', pizzaId).then(() => {
+                    this.showPD = true;
+                    this.PDloading = null;
+                });
             }
         },
         created() {
