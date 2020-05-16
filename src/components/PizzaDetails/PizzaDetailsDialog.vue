@@ -64,6 +64,9 @@
             }
         },
         computed: {
+            currentCurrency() {
+                return this.$store.getters['cart/getCurrency'];
+            },
             sizes() {
                 return this.$store.getters['pizzas/getSizes'];
             },
@@ -83,7 +86,8 @@
                 
                 this.pizza.pizza_sizes.map(s => {
                     if(s.id === size.id) {
-                        this.price = s.pivot.price_usd + ' $';
+                        const currencyIcon = this.currentCurrency === 'usd' ? '$' : '€';
+                        this.price = s.pivot.price_usd + currencyIcon;
                     }
                 });
             }
@@ -91,7 +95,8 @@
         watch: {
             pizza(newVal, oldVal) {
                 if(newVal.pizza_sizes !== undefined) {
-                    this.price = newVal.pizza_sizes[0].pivot['price_usd'] + ' $';
+                    const currencyIcon = this.currentCurrency === 'usd' ? '$' : '€';
+                    this.price = newVal.pizza_sizes[0].pivot['price_' + this.currentCurrency] + currencyIcon;
                 }
             }
         }

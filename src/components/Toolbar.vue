@@ -4,6 +4,8 @@
         <v-spacer></v-spacer>
 
         <!-- Control buttons -->
+        <CurrencySelector />
+        
         <v-btn text class="white--text" :to="{ name: 'login' }">
             <v-icon class="mr-2">account_circle</v-icon>
             <span>Login</span>
@@ -31,8 +33,12 @@
 </template>
 
 <script>
+    import CurrencySelector from './CurrencySelector'
     
     export default {
+        components: {
+            CurrencySelector
+        },
         methods: {
             // logout() {
             //     console.log('[auth] Logout');

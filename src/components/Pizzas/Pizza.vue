@@ -14,7 +14,7 @@
         </main>
         <footer class="pizza-item--footer">
             <div class="pizza-item--price">
-                <span>st. {{ getMinPrice }} $</span>
+                <span>st. {{ getMinPrice }}</span>
             </div>
 
             <div class="pizza-item--add-btn">
@@ -41,6 +41,9 @@
             }
         },
         computed: {
+            currentCurrency() {
+                return this.$store.getters['cart/getCurrency'];
+            },
             getMinPrice() {
                 let minPriceObj = this.item.pizza_sizes.filter(size => {
                     return size.name.toLowerCase() === 'small'
@@ -49,7 +52,9 @@
                 if(minPriceObj === undefined) return 0;
                 
                 else {
-                    return minPriceObj.pivot.price_usd;
+                    const currencyIcon = this.currentCurrency === 'usd' ? '$' : '€';
+                    
+                    return minPriceObj.pivot['price_' + this.currentCurrency] + currencyIcon;
                 }
             }
         },
