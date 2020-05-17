@@ -3,7 +3,7 @@
         <v-toolbar-title class="toolbar-title">
             <div class="toolbar-logo">
                 <router-link :to="{ name: 'home' }">
-                    <img src="@/assets/pizza-logo.png" alt="Pizza application logo">
+                    <img src="@/assets/img/pizza-logo.png" alt="Pizza application logo">
                 </router-link>
             </div>
             Pizza app

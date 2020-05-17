@@ -6,7 +6,7 @@
                     <PizzaDetailsCloseBtn @close="$emit('close')" />
 
                     <v-col cols="12" sm="12" md="6" lg="6">
-                        <PizzaDetailsImg src="@/assets/pizza.jpg" />
+                        <PizzaDetailsImg :src="pizza.image" />
                     </v-col>
 
                     <v-col cols="12" sm="12" md="6" lg="6">

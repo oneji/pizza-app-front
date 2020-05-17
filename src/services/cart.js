@@ -16,8 +16,6 @@ export default {
                     item.quantity++;
                     item.total_price_usd = generateTotalPrices(item).usd;
                     item.total_price_euro = generateTotalPrices(item).euro;
-
-                    newCartItem = item;
                 }
             }
             

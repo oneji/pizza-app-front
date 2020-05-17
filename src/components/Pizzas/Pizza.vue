@@ -2,7 +2,7 @@
     <article class="pizza-item">
         <main>
             <div class="pizza-item--img">
-                <img src="@/assets/pizza.jpg" :alt="item.name">
+                <img :src="pizzaImg" :alt="item.name">
             </div>
             <h2 class="pizza-item--title">{{ item.name }}</h2>
 
@@ -41,6 +41,13 @@
             }
         },
         computed: {
+            pizzaImg() {
+                if(this.item.image !== null) {
+                    return process.env.VUE_APP_ASSETS_URL + '/' + this.item.image;
+                } else {
+                    return require('@/assets/img/no-pizza.png')
+                }
+            },
             currentCurrency() {
                 return this.$store.getters['cart/getCurrency'];
             },

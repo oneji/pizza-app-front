@@ -1,7 +1,7 @@
 <template>
     <v-list-item :key="item.pizza.id" class="cart-item">
         <v-list-item-avatar>
-            <v-img src="@/assets/pizza.jpg"></v-img>
+            <v-img :src="pizzaImg"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -40,6 +40,14 @@
                 return this.$store.getters['cart/getCurrency'];
             },
 
+            pizzaImg() {
+                if(this.item.pizza.image !== null) {
+                    return process.env.VUE_APP_ASSETS_URL + '/' + this.item.pizza.image;
+                } else {
+                    return require('@/assets/img/no-pizza.png')
+                }
+            },
+
             getPizzaSize() {
                 let pizzaSize = '...';
                 this.item.pizza.pizza_sizes.map(size => {
@@ -50,6 +58,10 @@
 
                 return pizzaSize;
             }
+        },
+
+        mounted() {
+            console.log(this.item)
         }
     }
 </script>
