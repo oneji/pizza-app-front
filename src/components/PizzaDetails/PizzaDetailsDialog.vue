@@ -103,6 +103,7 @@
                 if(newVal.pizza_sizes !== undefined) {
                     const currencyIcon = this.currentCurrency === 'usd' ? ' $' : ' €';
                     this.price = newVal.pizza_sizes[0].pivot['price_' + this.currentCurrency] + currencyIcon;
+                    this.size = newVal.pizza_sizes[0];
                 }
             }
         }
