@@ -6,7 +6,20 @@
             </v-col>
         </v-row>
 
-        <v-row>
+        <v-row v-if="cart.length === 0">
+            <v-col>
+                <v-alert
+                    text
+                    outlined
+                    color="deep-orange"
+                    transition="scale-transition"
+                >
+                    No items added to the cart yet.
+                </v-alert>
+            </v-col>
+        </v-row>
+
+        <v-row v-else>
             <v-col>
                 <CartItemsList :items="cart" />
             </v-col>
