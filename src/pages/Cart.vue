@@ -11,6 +11,15 @@
                 <CartItemsList :items="cart" />
             </v-col>
         </v-row>
+
+        <v-row>
+            <v-col>
+                <v-btn :to="{ name: 'home' }" color="primary">Back to menu</v-btn>
+            </v-col>
+            <v-col class="d-flex justify-end">
+                <v-btn color="success">Order</v-btn>
+            </v-col>
+        </v-row>
     </div>
 </template>
 

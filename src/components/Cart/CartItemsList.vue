@@ -23,15 +23,13 @@
         },
         methods: {
             handleDeleteItem(itemId) {
-                console.log('delete', itemId);
-
                 this.$store.dispatch('cart/deleteItem', itemId);
             },
             handlePlus(itemId) {
-                console.log('plus', itemId);
+                this.$store.dispatch('cart/plusItem', itemId);
             },
             handleMinus(itemId) {
-                console.log('minus', itemId);
+                this.$store.dispatch('cart/minusItem', itemId);
             }
         }
     }

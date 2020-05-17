@@ -51,7 +51,10 @@
         },
         methods: {
             addPizzaToCart(data) {
-                this.$store.dispatch('cart/addToCart', data);
+                this.$store.dispatch('cart/addToCart', data)
+                    .then(() => {
+                        this.showPD = false;
+                    })
             },
             getByCategory(categoryId) {
                 this.loading = true;

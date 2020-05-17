@@ -1,13 +1,14 @@
 export function generateTotalPrices(pizzaData) {
-    let { sizeId, pizza } = pizzaData;
+    let { pizza_size_id, pizza, quantity } = pizzaData;
     let usd = 0;
     let euro = 0;
+
     // ...
     pizza.pizza_sizes.map(size => {
-        if(sizeId === size.id) {
+        if(pizza_size_id === size.id) {
             console.log(size);
-            usd = size.pivot.price_usd;
-            euro = size.pivot.price_euro;
+            usd = size.pivot.price_usd * quantity;
+            euro = size.pivot.price_euro * quantity;
         }
     });
 

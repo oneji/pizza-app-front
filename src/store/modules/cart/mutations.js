@@ -18,5 +18,9 @@ export default {
 
     [mutationTypes.DELETE_ITEM] (state, itemId) {
         state.items = state.items.filter(item => item.id !== itemId);
+    },
+
+    [mutationTypes.SET_CART] (state, cart) {
+        state.items = cart;
     }
 }

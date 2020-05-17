@@ -24,7 +24,13 @@
                             <PizzaDetailsPrice :price="price" />
 
                             <div class="pizza-details--add-btn mt-3">
-                                <v-btn block color="success" @click="addToCart">Add to cart</v-btn>
+                                <v-btn 
+                                    block 
+                                    color="success" 
+                                    @click="addToCart"
+                                >
+                                    Add to cart
+                                </v-btn>
                             </div>
                         </div>
                     </v-col>

@@ -1,6 +1,13 @@
 <template>
-    <v-app-bar app color="primary" dark dense>
-        <v-toolbar-title>Pizza app</v-toolbar-title>
+    <v-app-bar app color="primary" dark>
+        <v-toolbar-title class="toolbar-title">
+            <div class="toolbar-logo">
+                <router-link :to="{ name: 'home' }">
+                    <img src="@/assets/pizza-logo.png" alt="Pizza application logo">
+                </router-link>
+            </div>
+            Pizza app
+        </v-toolbar-title>
         <v-spacer></v-spacer>
 
         <!-- Control buttons -->
@@ -13,8 +20,8 @@
 
         <v-btn text class="white--text" :to="{ name: 'cart' }">
             <v-badge
-                :content="1"
-                :value="false"
+                :content="cart.length"
+                :value="cart.length > 0"
                 color="green"
                 overlap
                 left
@@ -39,6 +46,11 @@
         components: {
             CurrencySelector
         },
+        computed: {
+            cart() {
+                return this.$store.getters['cart/getItems'];
+            }
+        },
         methods: {
             // logout() {
             //     console.log('[auth] Logout');
@@ -49,5 +61,23 @@
 </script>
 
 <style lang="scss" scoped>
+    .toolbar-title {
+        display: flex;
+        align-items: center;
+    }
 
+    .toolbar-logo {
+        width: 60px;
+        margin-right: 10px;
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
 </style>

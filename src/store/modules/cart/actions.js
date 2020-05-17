@@ -29,11 +29,22 @@ export default {
 
         if(ok) {
             commit(mutationTypes.DELETE_ITEM, itemId);
-            commit(mutationTypes.SET_SNACKBAR, {
-                color: 'success',
-                active: true,
-                text: `${message}` 
-            });
+        }
+    },
+    
+    async plusItem({ commit }, itemId) {
+        let { ok, cart } = await cartService.plusItem(itemId);
+
+        if(ok) {
+            commit(mutationTypes.SET_CART, cart);
+        }
+    },
+
+    async minusItem({ commit }, itemId) {
+        let { ok, cart } = await cartService.minusItem(itemId);
+
+        if(ok) {
+            commit(mutationTypes.SET_CART, cart);
         }
     }
 }
