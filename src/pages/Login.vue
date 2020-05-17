@@ -1,15 +1,31 @@
 <template>
-    <div>
-        <h1>Login page!</h1>
+    <div class="login-page-container">
+        <v-row>
+            <v-col sm="6" md="6" lg="4" xl="4" offset-sm="3" offset-md="3" offset-lg="4" offset-xl="4">
+                <LoginForm />
+            </v-col>
+        </v-row>
     </div>
 </template>
 
 <script>
+    import LoginForm from '@/components/LoginForm'
+
     export default {
-        
+        components: {
+            LoginForm
+        }
     }
 </script>
 
 <style lang="scss" scoped>
-
+    .login-page-container {
+        height: calc(100vh - 140px);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-size: cover;
+        background-position: center center;
+    }
 </style>
