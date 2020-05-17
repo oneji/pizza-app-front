@@ -6,5 +6,17 @@ export default {
         state.currency = currency;
         // Set currency to the localStorage
         localStorage.setItem('p_currency', currency);
+    },
+
+    [mutationTypes.ADD_TO_CART] (state, cartItem) {
+        state.items = [...state.items, cartItem];
+    },
+
+    [mutationTypes.SET_SNACKBAR] (state, options) {
+        state.snackbar = options;
+    },
+
+    [mutationTypes.DELETE_ITEM] (state, itemId) {
+        state.items = state.items.filter(item => item.id !== itemId);
     }
 }

@@ -29,7 +29,7 @@
     import Categories from '@/components/Pizzas/Categories'
     import Pizza from '@/components/Pizzas/Pizza'
     import PizzaDetailsDialog from '@/components/PizzaDetails/PizzaDetailsDialog'
-
+    
     export default {
         components: {
             Loading,
@@ -51,7 +51,7 @@
         },
         methods: {
             addPizzaToCart(data) {
-                console.log('[addPizzaToCart]', data);
+                this.$store.dispatch('cart/addToCart', data);
             },
             getByCategory(categoryId) {
                 this.loading = true;
