@@ -8,8 +8,8 @@ export default {
         localStorage.setItem('p_currency', currency);
     },
 
-    [mutationTypes.ADD_TO_CART] (state, cartItem) {
-        state.items = [...state.items, cartItem];
+    [mutationTypes.ADD_TO_CART] (state, newCartItem) {
+        state.items = [...state.items, newCartItem];
     },
 
     [mutationTypes.SET_SNACKBAR] (state, options) {

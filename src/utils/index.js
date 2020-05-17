@@ -6,7 +6,6 @@ export function generateTotalPrices(pizzaData) {
     // ...
     pizza.pizza_sizes.map(size => {
         if(pizza_size_id === size.id) {
-            console.log(size);
             usd = size.pivot.price_usd * quantity;
             euro = size.pivot.price_euro * quantity;
         }

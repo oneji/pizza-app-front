@@ -14,7 +14,7 @@
                 @click="changeCurrency(item.value)"
                 :disabled="currentCurrency === item.value"
             >
-                <v-list-item-title>{{ item.text }}</v-list-item-title>
+                <v-list-item-title class="text-center">{{ item.text }}</v-list-item-title>
             </v-list-item>
         </v-list>
     </v-menu>
@@ -30,8 +30,8 @@
         data() {
             return {
                 items: [
-                    { text : 'USD $', value: 'usd', },
-                    { text: 'Euro €', value: 'euro', }
+                    { text : 'USD', value: 'usd', },
+                    { text: 'Euro', value: 'euro', }
                 ]
             }
         },

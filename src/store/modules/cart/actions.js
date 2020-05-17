@@ -12,10 +12,10 @@ export default {
     },
 
     async addToCart({ commit }, cartItem) {
-        let { ok, message, newCartItem } = await cartService.addToCart(cartItem);
+        let { ok, message, cart } = await cartService.addToCart(cartItem);
 
         if(ok) {
-            commit(mutationTypes.ADD_TO_CART, newCartItem);
+            commit(mutationTypes.SET_CART, cart);
             commit(mutationTypes.SET_SNACKBAR, {
                 color: 'success',
                 active: true,

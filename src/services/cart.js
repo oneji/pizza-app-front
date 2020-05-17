@@ -4,6 +4,7 @@ import { generateTotalPrices } from '@/utils/index'
 export default {
     addToCart(cartData) {
         return new Promise((resolve, reject) => {
+            let newCartItem;
             // Get the localStorage cart
             let cart = JSON.parse(localStorage.getItem('p_cart')) || [];
             // Check if the pizza with the same attributes already exists
@@ -14,11 +15,12 @@ export default {
                     // Update then existing pizza
                     item.quantity++;
                     item.total_price_usd = generateTotalPrices(item).usd;
-                    item.total_price_euro = generateTotalPrices(item).euro
+                    item.total_price_euro = generateTotalPrices(item).euro;
+
+                    newCartItem = item;
                 }
             }
-
-            let newCartItem;
+            
             if(!exists) {
                 // Get total prices
                 let totalPrices = generateTotalPrices({
@@ -39,7 +41,7 @@ export default {
 
                 // Generate new cart item
                 cart.push(newCartItem);
-            } 
+            }
 
             
             // Add items to the localStorage cart
@@ -48,7 +50,7 @@ export default {
             resolve({
                 ok: true,
                 message: 'Item has been successfully added to the cart.',
-                newCartItem
+                cart
             })
         });
 
@@ -56,7 +58,6 @@ export default {
     },
 
     deleteItem(itemId) {
-        console.log('deleteItem', itemId);
         return new Promise((resolve, reject) => {
             // Get all items from localStorage
             let cart = JSON.parse(localStorage.getItem('p_cart')) || [];
