@@ -6,7 +6,7 @@ const authModule = {
     namespaced: true,
     state: {
         loading: false,
-        isAuthenticated: !!localStorage.getItem('vc_token'),
+        isAuthenticated: !!localStorage.getItem('p_token'),
         user: null,
         token: null,
         error: false,

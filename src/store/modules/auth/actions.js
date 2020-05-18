@@ -4,23 +4,22 @@ import router from '@/router/index'
 
 export default {
     async fetchUser({ commit }) {
-        // commit('setPageLoading', true, { root: true })
         let { data } = await api.fetchUser();
 
         if(!data.ok) console.log('err', data);
         else {
             commit(mutationTypes.SET_USER, data.user);
-
-            // commit('setPageLoading', false, { root: true })
         }
     },
 
     async login({ commit }, credentials) {
+        // Loading state of login page
+        commit(mutationTypes.AUTH_LOADING);
         let { data } = await api.login(credentials);
-        
-        if(!data.ok) console.log('err', data);
+
+        if(!data.ok) commit(mutationTypes.AUTH_FAILED, data.message);
         else {
-            commit(mutationTypes.AUTH_SUCCESS, data)
+            commit(mutationTypes.AUTH_SUCCESS, data);
         }
     },
 

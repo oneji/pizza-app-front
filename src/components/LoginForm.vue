@@ -15,11 +15,11 @@
                 lazy-validation
             >
                 <v-text-field 
-                    name="username" 
-                    label="Username" 
+                    name="email" 
+                    label="Email" 
                     type="text"
-                    v-model="username" 
-                    :rules="usernameRules"
+                    v-model="email" 
+                    :rules="emailRules"
                     required
                 ></v-text-field>
                 
@@ -40,6 +40,7 @@
                     color="info" 
                     block 
                     type="submit"
+                    :loading="$store.getters['auth/getAuthLoadingState']"
                 >
                     Log in
                 </v-btn>
@@ -53,10 +54,11 @@
         data() {
             return {
                 showPassword: true,
-                username: '',
+                email: '',
                 password: '',
-                usernameRules: [
-                    v => !!v || 'Username is required',
+                emailRules: [
+                    v => !!v || 'E-mail is required',
+                    v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
                 ],
                 passwordRules: [
                     v => !!v || 'Password is required',
@@ -68,7 +70,10 @@
                 let validation = this.$refs.form.validate();
 
                 if(validation) {
-                    console.log('isValid')
+                    this.$emit('login', {
+                        email: this.email,
+                        password: this.password
+                    });
                 }
             }
         }

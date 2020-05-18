@@ -2,7 +2,7 @@
     <div class="login-page-container">
         <v-row>
             <v-col sm="6" md="6" lg="4" xl="4" offset-sm="3" offset-md="3" offset-lg="4" offset-xl="4">
-                <LoginForm />
+                <LoginForm @login="login" />
             </v-col>
         </v-row>
     </div>
@@ -14,6 +14,11 @@
     export default {
         components: {
             LoginForm
+        },
+        methods: {
+            login(credentials) {
+                this.$store.dispatch('auth/login', credentials);
+            }
         }
     }
 </script>

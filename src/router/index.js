@@ -9,20 +9,23 @@ const router = new Router({
     routes
 });
 
-// router.beforeEach((to, from, next) => {
-//     const isAuthenticated = !!localStorage.getItem('vc_token');
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = !!localStorage.getItem('p_token');
 
-//     if (isAuthenticated) {
-//         store.dispatch('auth/fetchUser').then(() => {
-//             next();
-//         });
-//     } else {
-//         if (to.name !== 'Login') {
-//             next('/login');
-//         } else {
-//             next();
-//         }
-//     }
-// })
+    if (isAuthenticated) {
+        if(to.name === 'login') {
+            next('/');
+        } else {
+            next();
+        }
+        // store.dispatch('auth/fetchUser').then(() => {});
+    } else {
+        if (to.name !== 'login') {
+            next('/login');
+        } else {
+            next();
+        }
+    }
+})
 
 export default router

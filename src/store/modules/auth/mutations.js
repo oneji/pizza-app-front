@@ -1,5 +1,6 @@
 import * as mutationTypes from './mutation-types'
 import axios from '@/axios'
+import router from '@/router/index'
 
 export default {
     [mutationTypes.AUTH_LOADING] (state) {
@@ -15,9 +16,11 @@ export default {
         state.error = false;
         state.errorMessage = '';
         // Set token to a local storage
-        localStorage.setItem('vc_token', userData.token);
+        localStorage.setItem('p_token', userData.token);
         // Set axios `Authorization` header
         axios.defaults.headers.common['Authorization'] = `Bearer ${userData.token}`;
+
+        router.push({ name: 'home' })
     },
 
     [mutationTypes.AUTH_FAILED] (state, message) {
@@ -34,6 +37,6 @@ export default {
         state.isAuthenticated = false;
         state.user = null;
         state.token = null;
-        localStorage.removeItem('vc_token');
+        localStorage.removeItem('p_token');
     }
 }
