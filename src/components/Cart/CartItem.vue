@@ -1,24 +1,24 @@
 <template>
-    <v-list-item :key="item.pizza.id" class="cart-item">
+    <v-list-item class="cart-item">
         <v-list-item-avatar>
             <v-img :src="pizzaImg"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
-            <v-list-item-title v-html="item.pizza.name"></v-list-item-title>
-            <v-list-item-subtitle>{{ getPizzaSize }}</v-list-item-subtitle>
+            <v-list-item-title v-html="item.name"></v-list-item-title>
+            <v-list-item-subtitle>{{ item.size_name }}</v-list-item-subtitle>
         </v-list-item-content>
 
         <v-list-item-action class="cart-item--actions">
             <QuantitySelector
                 :count="item.quantity"
-                @minus="$emit('minus', item.id)"
-                @plus="$emit('plus', item.id)"
+                @minus="$emit('minus', item.item_id)"
+                @plus="$emit('plus', item.item_id)"
             />
 
             <div class="cart-item--total-price">{{ item['total_price_' + currentCurrency] }} {{ currentCurrency === 'usd' ? ' $' : ' €' }}</div>
 
-            <v-btn fab small text color="error" @click="$emit('delete', item.id)">
+            <v-btn fab small text color="error" @click="$emit('delete', item.item_id)">
                 <v-icon>delete</v-icon>
             </v-btn>
         </v-list-item-action>
@@ -41,28 +41,13 @@
             },
 
             pizzaImg() {
-                if(this.item.pizza.image !== null) {
-                    return process.env.VUE_APP_ASSETS_URL + '/' + this.item.pizza.image;
+                if(this.item.image !== null) {
+                    return process.env.VUE_APP_ASSETS_URL + '/' + this.item.image;
                 } else {
                     return require('@/assets/img/no-pizza.png')
                 }
             },
-
-            getPizzaSize() {
-                let pizzaSize = '...';
-                this.item.pizza.pizza_sizes.map(size => {
-                    if(size.id === this.item.pizza_size_id) {
-                        pizzaSize = size.name;
-                    }
-                });
-
-                return pizzaSize;
-            }
         },
-
-        mounted() {
-            console.log(this.item)
-        }
     }
 </script>
 

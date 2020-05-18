@@ -19,13 +19,9 @@ router.beforeEach((to, from, next) => {
             next();
         }
         // store.dispatch('auth/fetchUser').then(() => {});
-    } else {
-        if (to.name !== 'login') {
-            next('/login');
-        } else {
-            next();
-        }
-    }
+    } 
+    
+    next();
 })
 
 export default router

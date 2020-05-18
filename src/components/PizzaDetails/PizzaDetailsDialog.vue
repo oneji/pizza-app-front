@@ -84,7 +84,8 @@
             addToCart() {
                 this.$emit('add-to-cart', {
                     sizeId: this.size.id,
-                    pizza: this.pizza
+                    pizzaId: this.pizza.id,
+                    quantity: 1
                 });
             },
             handleSizeChange(size) {

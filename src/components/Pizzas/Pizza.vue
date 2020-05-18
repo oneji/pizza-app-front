@@ -80,14 +80,16 @@
     .pizza-item {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 60px;
+        margin-bottom: 30px;
         flex-flow: column;
         padding: 20px;
 
         &--img {
             position: relative;
-            width: 100%;
-            margin: 0px;
+            width: 235px;
+            height: 235px;
+            display: block;
+            margin: 0 auto;
 
             img {
                 width: 100%;
@@ -109,13 +111,6 @@
         }
 
         &--size {
-            // background-color: #4caf50;
-            // border-radius: 10px;
-            // opacity: .12;
-            // color: #fff;
-            // padding: 5px;
-            // line-height: 15px;
-
             p {
                 font-size: 14px;
                 margin: 0;

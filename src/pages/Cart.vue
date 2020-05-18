@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Loading :show="loading" />
         <v-row>
             <v-col>
                 <h1>Cart</h1>
@@ -19,7 +20,7 @@
             </v-col>
         </v-row>
 
-        <v-row v-else>
+        <v-row v-if="!loading">
             <v-col>
                 <CartItemsList :items="cart" />
             </v-col>
@@ -37,10 +38,12 @@
 </template>
 
 <script>
+    import Loading from '@/components/Loading'
     import CartItemsList from '@/components/Cart/CartItemsList'
 
     export default {
         components: {
+            Loading,
             CartItemsList
         },
         computed: {
@@ -50,7 +53,18 @@
         },
         data() {
             return {
-                
+                loading: false
+            }
+        },
+        mounted() {
+            let cartItems = JSON.parse(localStorage.getItem('p_cart')) || [];
+            
+            if(cartItems.length > 0) {
+            this.loading = true;
+                this.$store.dispatch('cart/getInfo', cartItems)
+                    .then(() => {
+                        this.loading = false;
+                    })
             }
         }
     }

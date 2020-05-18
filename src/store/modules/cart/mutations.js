@@ -17,10 +17,35 @@ export default {
     },
 
     [mutationTypes.DELETE_ITEM] (state, itemId) {
-        state.items = state.items.filter(item => item.id !== itemId);
+        state.items = state.items.filter(item => item.item_id !== itemId);
     },
 
     [mutationTypes.SET_CART] (state, cart) {
         state.items = cart;
-    }
+    },
+
+    [mutationTypes.ITEM_PLUS] (state, itemId) {
+        state.items.map(item => {
+            if(item.item_id === itemId) {
+                item.quantity++;
+                item.total_price_usd = item.price_usd * item.quantity;    
+                item.total_price_euro = item.price_euro * item.quantity;    
+            }
+        });
+    },
+
+    [mutationTypes.ITEM_MINUS] (state, itemId) {
+        state.items.map((item, idx) => {
+            if(item.item_id === itemId) {
+                item.quantity--;
+                if(item.quantity == 0) {
+                    state.items.splice(idx, 1);
+                } else {
+                    item.total_price_usd = item.price_usd * item.quantity;    
+                    item.total_price_euro = item.price_euro * item.quantity;
+                }
+
+            }
+        });
+    },
 }

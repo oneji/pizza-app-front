@@ -1,9 +1,9 @@
 <template>
     <v-list two-line>
         <template v-for="item in items">
-            <CartItem 
+            <CartItem
                 :item="item" 
-                :key="item.id"
+                :key="item.item_id"
                 @delete="handleDeleteItem"
                 @minus="handleMinus"
                 @plus="handlePlus" />

@@ -11,6 +11,14 @@ export default {
         commit(mutationTypes.SET_CURRENCY, currency);
     },
 
+    async getInfo({ commit }, cartItems) {
+        let { data } = await cartService.getInfo(cartItems);
+
+        if(data.ok) {
+            commit(mutationTypes.SET_CART, data.pizzas);
+        }
+    },
+
     async addToCart({ commit }, cartItem) {
         let { ok, message, cart } = await cartService.addToCart(cartItem);
 
@@ -36,7 +44,7 @@ export default {
         let { ok, cart } = await cartService.plusItem(itemId);
 
         if(ok) {
-            commit(mutationTypes.SET_CART, cart);
+            commit(mutationTypes.ITEM_PLUS, itemId);
         }
     },
 
@@ -44,7 +52,7 @@ export default {
         let { ok, cart } = await cartService.minusItem(itemId);
 
         if(ok) {
-            commit(mutationTypes.SET_CART, cart);
+            commit(mutationTypes.ITEM_MINUS, itemId);
         }
     }
 }
