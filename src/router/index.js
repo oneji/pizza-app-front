@@ -11,17 +11,19 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     const isAuthenticated = !!localStorage.getItem('p_token');
+    const currentUser = store.getters['auth/getUser'];
 
-    if (isAuthenticated) {
+    if (isAuthenticated && currentUser === null) {
         if(to.name === 'login') {
             next('/');
         } else {
-            next();
+            store.dispatch('auth/fetchUser').then(() => {
+                next();
+            });
         }
-        // store.dispatch('auth/fetchUser').then(() => {});
-    } 
-    
-    next();
+    } else {
+        next();
+    }
 })
 
 export default router

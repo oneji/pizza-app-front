@@ -1,10 +1,12 @@
 <template>
     <v-menu offset-y>
         <template v-slot:activator="{ on }">
-            
-            <v-btn text dark v-on="on">
+            <v-btn text dark v-on="on" class="hidden-xs-only">
                 <v-icon class="mr-2">credit_card</v-icon>
                 {{ currentCurrency }}
+            </v-btn>
+            <v-btn text dark v-on="on" class="hidden-sm-and-up">
+                <v-icon>credit_card</v-icon>
             </v-btn>
         </template>
         <v-list>

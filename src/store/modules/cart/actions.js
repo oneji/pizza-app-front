@@ -54,5 +54,19 @@ export default {
         if(ok) {
             commit(mutationTypes.ITEM_MINUS, itemId);
         }
+    },
+
+    async order({ commit }, orderItems) {
+        let { data } = await cartService.order(orderItems);
+
+        if(data.ok) {
+            commit(mutationTypes.SET_CART, []);
+            localStorage.removeItem('p_cart');
+            commit(mutationTypes.SET_SNACKBAR, {
+                color: 'success',
+                active: true,
+                text: `${data.message}` 
+            });
+        }
     }
 }

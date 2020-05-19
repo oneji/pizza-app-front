@@ -6,19 +6,19 @@
                     <img src="@/assets/img/pizza-logo.png" alt="Pizza application logo">
                 </router-link>
             </div>
-            Pizza app
+            <span class="hidden-xs-only">Pizza app</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
 
         <!-- Control buttons -->
         <CurrencySelector />
         
-        <v-btn text class="white--text" :to="{ name: 'login' }">
+        <v-btn text class="white--text hidden-xs-only" :to="{ name: 'login' }">
             <v-icon class="mr-2">account_circle</v-icon>
             <span>Login</span>
         </v-btn>
 
-        <v-btn text class="white--text" :to="{ name: 'cart' }">
+        <v-btn text class="white--text hidden-xs-only" :to="{ name: 'cart' }">
             <v-badge
                 :content="cart.length"
                 :value="cart.length > 0"
@@ -31,6 +31,8 @@
                 <span>Cart</span>
             </v-badge>
         </v-btn>
+
+        <MobileNav />
         
         <!-- <v-btn text class="white--text d-none d-sm-flex" @click="logout">
             <v-icon class="mr-2">exit_to_app</v-icon>
@@ -41,10 +43,12 @@
 
 <script>
     import CurrencySelector from './CurrencySelector'
+    import MobileNav from './MobileNav'
     
     export default {
         components: {
-            CurrencySelector
+            CurrencySelector,
+            MobileNav
         },
         computed: {
             cart() {

@@ -103,5 +103,9 @@ export default {
                 cart
             });
         });
+    },
+
+    order(cartItems) {
+        return axios.post('/order', cartItems);
     }
 }
