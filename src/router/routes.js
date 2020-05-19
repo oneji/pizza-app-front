@@ -4,6 +4,7 @@ import MainLayout from '@/layout/MainLayout'
 import Login from '@/pages/Login'
 import Home from '@/pages/Home'
 import Cart from '@/pages/Cart'
+import Orders from '@/pages/Orders'
 
 const routes = [
     { 
@@ -12,6 +13,7 @@ const routes = [
             { path: '/login', name: 'login', component: Login },
             { path: '/', name: 'home', component: Home },
             { path: '/cart', name: 'cart', component: Cart },
+            { path: '/orders', name: 'orders', component: Orders, meta: { requiresAuth: true } },
         ]
     },
 ]

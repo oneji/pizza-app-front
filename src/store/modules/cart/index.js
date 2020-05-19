@@ -2,7 +2,7 @@ import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 
-const authModule = {
+const cartModule = {
     namespaced: true,
     state: {
         items: JSON.parse(localStorage.getItem('p_cart')) || [],
@@ -19,4 +19,4 @@ const authModule = {
     actions
 }
 
-export default authModule
+export default cartModule

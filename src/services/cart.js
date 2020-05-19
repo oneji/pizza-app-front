@@ -106,6 +106,6 @@ export default {
     },
 
     order(cartItems) {
-        return axios.post('/order', cartItems);
+        return axios.post('/orders', cartItems);
     }
 }

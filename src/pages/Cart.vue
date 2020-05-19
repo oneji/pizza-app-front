@@ -69,9 +69,8 @@
             },
             totalPrice() {
                 let totalPrice = this.$store.getters['cart/totalPrice'][this.currentCurrency];
-                let deliveryPercent = (totalPrice * 10) / 100
 
-                return totalPrice + deliveryPercent;
+                return totalPrice;
             },
             cart() {
                 return this.$store.getters['cart/getItems'];

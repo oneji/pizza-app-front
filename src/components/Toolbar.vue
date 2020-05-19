@@ -13,12 +13,12 @@
         <!-- Control buttons -->
         <CurrencySelector />
         
-        <v-btn text class="white--text hidden-xs-only" :to="{ name: 'login' }">
+        <v-btn text class="white--text hidden-xs-only mr-2" v-if="!isAuth" :to="{ name: 'login' }">
             <v-icon class="mr-2">account_circle</v-icon>
             <span>Login</span>
         </v-btn>
 
-        <v-btn text class="white--text hidden-xs-only" :to="{ name: 'cart' }">
+        <v-btn text class="white--text hidden-xs-only mr-2" :to="{ name: 'cart' }">
             <v-badge
                 :content="cart.length"
                 :value="cart.length > 0"
@@ -33,34 +33,31 @@
         </v-btn>
 
         <MobileNav />
-        
-        <!-- <v-btn text class="white--text d-none d-sm-flex" @click="logout">
-            <v-icon class="mr-2">exit_to_app</v-icon>
-            <span>Выйти</span>
-        </v-btn> -->
+
+        <!-- User menu -->
+        <UserMenu v-if="isAuth" />
     </v-app-bar>
 </template>
 
 <script>
     import CurrencySelector from './CurrencySelector'
     import MobileNav from './MobileNav'
+    import UserMenu from './UserMenu'
     
     export default {
         components: {
             CurrencySelector,
-            MobileNav
+            MobileNav,
+            UserMenu
         },
         computed: {
             cart() {
                 return this.$store.getters['cart/getItems'];
+            },
+            isAuth() {
+                return this.$store.getters['auth/isAuthenticated'];
             }
         },
-        methods: {
-            // logout() {
-            //     console.log('[auth] Logout');
-            //     this.$store.dispatch('auth/logout');
-            // }
-        }
     }
 </script>
 

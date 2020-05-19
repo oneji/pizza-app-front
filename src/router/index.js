@@ -22,6 +22,14 @@ router.beforeEach((to, from, next) => {
             });
         }
     } else {
+        next()
+    }
+
+    if(!isAuthenticated) {
+        if(to.meta.requiresAuth) {
+            next('/login')
+        }
+
         next();
     }
 })

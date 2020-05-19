@@ -5,8 +5,9 @@ Vue.use(Vuex)
 
 // Modules
 import authModule from './modules/auth'
-import pizzazModule from './modules/pizzas'
+import pizzasModule from './modules/pizzas'
 import cartModule from './modules/cart'
+import ordersModule from './modules/orders'
 
 export default new Vuex.Store({
     state: {},
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     actions: {},
     modules: {
         auth: authModule,
-        pizzas: pizzazModule,
-        cart: cartModule
+        pizzas: pizzasModule,
+        cart: cartModule,
+        orders: ordersModule
     }
 })

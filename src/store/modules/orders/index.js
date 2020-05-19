@@ -2,13 +2,10 @@ import getters from './getters'
 import mutations from './mutations'
 import actions from './actions'
 
-const pizzasModule = {
+const authModule = {
     namespaced: true,
     state: {
-        items: [],
-        sizes: [],
-        categories: [],
-        details: {}
+        items: []
     },
 
     getters,
@@ -16,4 +13,4 @@ const pizzasModule = {
     actions
 }
 
-export default pizzasModule
+export default authModule
