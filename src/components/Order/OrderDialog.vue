@@ -66,6 +66,12 @@
             totalPrice() {
                 return this.$store.getters['cart/totalPrice'];
             },
+            isAuth() {
+                return this.$store.getters['auth/isAuthenticated'];
+            },
+            user() {
+                return this.$store.getters['auth/getUser'];
+            }
         },
         data() {
             return {
@@ -95,7 +101,7 @@
                         delivery_address: this.deliveryAddress,
                         contacts: this.contacts,
                         comment: this.comment,
-                        user_id: null,
+                        user_id: this.isAuth ? this.user.id : null,
                         orderItems: JSON.parse(localStorage.getItem('p_cart')) || []
                     }
 
