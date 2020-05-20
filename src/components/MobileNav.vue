@@ -6,8 +6,8 @@
         
         <v-btn fab small text :to="{ name: 'cart' }" class="white--text hidden-sm-and-up">
             <v-badge
-                :content="cart.length"
-                :value="cart.length > 0"
+                :content="getItems.length"
+                :value="getItems.length > 0"
                 color="green"
                 overlap
                 left
@@ -20,13 +20,13 @@
 </template>
 
 <script>
-    export default {
-        computed: {
-            cart() {
-                return this.$store.getters['cart/getItems'];
-            }
-        }
+import { mapGetters } from 'vuex'
+
+export default {
+    computed: {
+        ...mapGetters('cart', [ 'getItems' ])
     }
+}
 </script>
 
 <style lang="scss" scoped>

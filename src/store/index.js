@@ -11,8 +11,6 @@ import ordersModule from './modules/orders'
 
 export default new Vuex.Store({
     state: {},
-    mutations: {},
-    actions: {},
     modules: {
         auth: authModule,
         pizzas: pizzasModule,

@@ -1,14 +1,14 @@
 <template>
     <div>
-        <Loading :show="loading"/>
+        <!-- <Loading :show="loading"/> -->
         <v-row>
             <v-col sm="8" md="9" lg="9">
-                <Categories @change="getByCategory" />
+                <Categories @change="getPizzaByCategory" />
             </v-col>
         </v-row>
 
-        <v-row v-if="!loading">
-            <v-col v-for="pizza in pizzas" :key="pizza.id" sm="6" md="3" lg="3">
+        <v-row>
+            <v-col v-for="pizza in getPizzas" :key="pizza.id" sm="6" md="3" lg="3">
                 <Pizza 
                     :item="pizza"
                     :loading="PDloading"
@@ -17,7 +17,8 @@
             </v-col>
         </v-row>
 
-        <PizzaDetailsDialog 
+        <PizzaDetailsDialog
+            :pizza="pizza"
             :show="showPD"
             @close="showPD = false"
             @add-to-cart="addPizzaToCart" />
@@ -25,56 +26,63 @@
 </template>
 
 <script>
-    import Loading from '@/components/Loading'
-    import Categories from '@/components/Pizzas/Categories'
-    import Pizza from '@/components/Pizzas/Pizza'
-    import PizzaDetailsDialog from '@/components/PizzaDetails/PizzaDetailsDialog'
-    
-    export default {
-        components: {
-            Loading,
-            Categories,
-            Pizza,
-            PizzaDetailsDialog
-        },
-        computed: {
-            pizzas() {
-                return this.$store.getters['pizzas/getPizzas'];
+import Loading from '@/components/Loading'
+import Categories from '@/components/Pizzas/Categories'
+import Pizza from '@/components/Pizzas/Pizza'
+import PizzaDetailsDialog from '@/components/PizzaDetails/PizzaDetailsDialog'
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+    components: {
+        Loading,
+        Categories,
+        Pizza,
+        PizzaDetailsDialog
+    },
+    computed: {
+        ...mapGetters({
+            'getPizzas': 'pizzas/getPizzas'
+        })
+    },
+    data() {
+        return {
+            loading: false,
+            showPD: false,
+            PDloading: null,
+            pizza: {
+                image: null,
+                name: '...',
+                description: null
             }
+        }
+    },
+    methods: {
+        ...mapActions({
+            'addToCart': 'cart/addToCart',
+            'getByCategory': 'pizzas/getByCategory',
+            'getById': 'pizzas/getById',
+            'getAllPizzas': 'pizzas/getAll'
+        }),
+        addPizzaToCart(data) {
+            this.addToCart(data).then(() => this.showPD = false);
         },
-        data() {
-            return {
-                loading: true,
-                showPD: false,
-                PDloading: null
-            }
+        getPizzaByCategory(categoryId) {
+            this.loading = true;
+            this.getByCategory(categoryId).then(() => this.loading = false);
         },
-        methods: {
-            addPizzaToCart(data) {
-                this.$store.dispatch('cart/addToCart', data)
-                    .then(() => {
-                        this.showPD = false;
-                    })
-            },
-            getByCategory(categoryId) {
-                this.loading = true;
-                this.$store.dispatch('pizzas/getByCategory', categoryId)
-                    .then(() => this.loading = false);
-            },
-            showPizzaDetails(pizzaId) {
-                this.PDloading = pizzaId;
-                this.$store.dispatch('pizzas/getById', pizzaId).then(() => {
-                    this.showPD = true;
-                    this.PDloading = null;
-                });
-            }
-        },
-        created() {
-            this.$store.dispatch('pizzas/getPizzas').then(() => {
-                this.loading = false;
+        showPizzaDetails(pizzaId) {
+            this.PDloading = pizzaId;
+            this.getById(pizzaId).then((pizza) => {
+                this.pizza = pizza;
+                this.showPD = true;
+                this.PDloading = null;
             });
         }
+    },
+    mounted() {
+        this.getAllPizzas();
     }
+}
 </script>
 
 <style>

@@ -10,7 +10,7 @@
         <v-row>
             <v-col>
                 <OrdersList 
-                    :items="orders"
+                    :items="getOrders"
                     @show-details="showOrderDetails" />
             </v-col>
         </v-row>
@@ -23,40 +23,39 @@
 </template>
 
 <script>
-    import Loading from '@/components/Loading'
-    import OrdersList from '@/components/Order/OrdersList'
-    import OrderDetailsDialog from '@/components/Order/OrderDetailsDialog'
+import Loading from '@/components/Loading'
+import OrdersList from '@/components/Order/OrdersList'
+import OrderDetailsDialog from '@/components/Order/OrderDetailsDialog'
+import { mapGetters, mapActions } from 'vuex'
 
-    export default {
-        components: {
-            Loading,
-            OrdersList,
-            OrderDetailsDialog
-        },
-        computed: {
-            orders() {
-                return this.$store.getters['orders/getOrders'];
-            }
-        },
-        data() {
-            return {
-                loading: true,
-                showDetails: false,
-                orderDetailsObj: {}
-            }
-        },
-        methods: {
-            showOrderDetails(orderItem) {
-                this.orderDetailsObj = orderItem;
-                this.showDetails = true; 
-            }
-        },
-        created() {
-            this.loading = true;
-            this.$store.dispatch('orders/getOrders')
-                .then(() => this.loading = false);
+export default {
+    components: {
+        Loading,
+        OrdersList,
+        OrderDetailsDialog
+    },
+    computed: {
+        ...mapGetters('orders', [ 'getOrders' ])
+    },
+    data() {
+        return {
+            loading: true,
+            showDetails: false,
+            orderDetailsObj: {}
         }
+    },
+    methods: {
+        ...mapActions('orders', [ 'get' ]),
+        showOrderDetails(orderItem) {
+            this.orderDetailsObj = orderItem;
+            this.showDetails = true;
+        }
+    },
+    created() {
+        this.loading = true;
+        this.get().then(() => this.loading = false);
     }
+}
 </script>
 
 <style lang="scss" scoped>

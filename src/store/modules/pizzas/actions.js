@@ -3,7 +3,7 @@ import * as mutationTypes from './mutation-types'
 import router from '@/router'
 
 export default {
-    async getPizzas({ commit }) {
+    async getAll({ commit }) {
         let { data } = await api.getPizzas();
         
         if(data.ok) {
@@ -24,11 +24,18 @@ export default {
         }
     },
 
-    async getById({ commit }, pizzaId) {
-        let { data } = await api.getById(pizzaId);
+    getById({ commit }, pizzaId) {
+        return new Promise((resolve, reject) => {
+            api.getById(pizzaId)
+                .then(result => {
+                    let { data } = result
 
-        if(data.ok) {
-            commit(mutationTypes.SET_DETAILS, data.pizza);
-        }
+                    if(data.ok) {
+                        resolve(data.pizza);
+                    }
+
+                })
+
+        });
     }
 }

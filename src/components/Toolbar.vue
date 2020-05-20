@@ -40,25 +40,24 @@
 </template>
 
 <script>
-    import CurrencySelector from './CurrencySelector'
-    import MobileNav from './MobileNav'
-    import UserMenu from './UserMenu'
+import CurrencySelector from './CurrencySelector'
+import MobileNav from './MobileNav'
+import UserMenu from './UserMenu'
+import { mapGetters } from 'vuex'
     
-    export default {
-        components: {
-            CurrencySelector,
-            MobileNav,
-            UserMenu
-        },
-        computed: {
-            cart() {
-                return this.$store.getters['cart/getItems'];
-            },
-            isAuth() {
-                return this.$store.getters['auth/isAuthenticated'];
-            }
-        },
-    }
+export default {
+    components: {
+        CurrencySelector,
+        MobileNav,
+        UserMenu
+    },
+    computed: {
+        ...mapGetters({
+            'cart': 'cart/getItems',
+            'isAuth': 'auth/isAuthenticated'
+        })
+    },
+}
 </script>
 
 <style lang="scss" scoped>

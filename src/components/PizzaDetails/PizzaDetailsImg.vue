@@ -6,6 +6,9 @@
 
 <script>
     export default {
+        props: {
+            src: String
+        },
         computed: {
             pizzaImg() {
                 if(this.src !== null) {
@@ -15,9 +18,6 @@
                 }
             },
         },
-        props: {
-            src: String
-        }
     }
 </script>
 

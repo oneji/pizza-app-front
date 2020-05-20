@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="show" width="500px" persistent>
-        <v-form ref="form" lazy-validation @submit.prevent="order">
+        <v-form ref="form" lazy-validation @submit.prevent="handleOrder">
             <v-card>
                 <v-card-title>
                     <span class="headline">Order details</span>
@@ -55,67 +55,65 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            show: Boolean
-        },
-        computed: {
-            currentCurrency() {
-                return this.$store.getters['cart/getCurrency'];
-            },
-            totalPrice() {
-                return this.$store.getters['cart/totalPrice'];
-            },
-            isAuth() {
-                return this.$store.getters['auth/isAuthenticated'];
-            },
-            user() {
-                return this.$store.getters['auth/getUser'];
-            }
-        },
-        data() {
-            return {
-                deliveryAddress: '',
-                contacts: '',
-                comment: '',
+import { mapGetters, mapActions } from 'vuex';
+export default {
+    props: {
+        show: Boolean
+    },
+    computed: {
+        ...mapGetters({
+            'currentCurrency': 'cart/getCurrency',
+            'totalPrice': 'cart/totalPrice',
+            'isAuth': 'auth/isAuthenticated',
+            'user': 'auth/getUser'
+        })
+    },
+    data() {
+        return {
+            deliveryAddress: '',
+            contacts: '',
+            comment: '',
 
-                loading: false,
-                addressRules: [
-                    v => !!v || 'Address is required',
-                ],
-                contactsRules: [
-                    v => !!v || 'Contacts is required',
-                ],
-            }
-        },
-        methods: {
-            order() {
-                let valid = this.$refs.form.validate();
+            loading: false,
+            addressRules: [
+                v => !!v || 'Address is required',
+            ],
+            contactsRules: [
+                v => !!v || 'Contacts is required',
+            ],
+        }
+    },
+    methods: {
+        ...mapActions('cart', ['order']),
+        handleOrder() {
+            let valid = this.$refs.form.validate();
 
-                if(valid) {
-                    this.loading = true;
-                    const orderItems = {
-                        total_price_usd: this.totalPrice.usd,
-                        total_price_euro: this.totalPrice.euro,
-                        delivery_address: this.deliveryAddress,
-                        contacts: this.contacts,
-                        comment: this.comment,
-                        user_id: this.isAuth ? this.user.id : null,
-                        orderItems: JSON.parse(localStorage.getItem('p_cart')) || []
-                    }
-
-                    this.$store.dispatch('cart/order', orderItems)
-                        .then(() => {
-                            this.$emit('close');
-                            this.loading = false;
-                            this.deliveryAddress = '';
-                            this.contacts = '';
-                            this.comment = '';
-                        });
+            if(valid) {
+                this.loading = true;
+                const orderItems = {
+                    total_price_usd: this.totalPrice.usd,
+                    total_price_euro: this.totalPrice.euro,
+                    delivery_address: this.deliveryAddress,
+                    contacts: this.contacts,
+                    comment: this.comment,
+                    user_id: this.isAuth ? this.user.id : null,
+                    orderItems: JSON.parse(localStorage.getItem('p_cart')) || []
                 }
+
+                console.log(orderItems)
+
+                this.order(orderItems)
+                    .then(() => {
+                        this.$emit('close');
+                        this.loading = false;
+                        this.deliveryAddress = '';
+                        this.contacts = '';
+                        this.comment = '';
+                    });
             }
         }
     }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -8,7 +8,7 @@
     >
         <v-chip @click="$emit('change', null)">All</v-chip>
         <v-chip
-            v-for="cat in items" 
+            v-for="cat in getCategories" 
             :key="cat.id"
             @click="$emit('change', cat.id)"
         >{{ cat.name }}</v-chip>
@@ -16,11 +16,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
     export default {
         computed: {
-            items() {
-                return this.$store.getters['pizzas/getCategories'];
-            }
+            ...mapGetters('pizzas', [ 'getCategories' ])
         },
         data() {
             return {

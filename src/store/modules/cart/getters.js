@@ -22,12 +22,14 @@ export default {
             total.euro += item.total_price_euro;
         });
 
-        let deliveryCostUsd = (total.usd * 10) / 100;
-        let deliveryCostEuro = (total.euro * 10) / 100;
+        let deliveryCost = {
+            usd: (total.usd * 10) / 100,
+            euro: (total.euro * 10) / 100
+        }
 
         return {
-            usd: total.usd + deliveryCostUsd,
-            euro: total.euro + deliveryCostEuro,
-        };
-    }
+            usd: total.usd + deliveryCost.usd,
+            euro: total.euro + deliveryCost.euro
+        }
+    },
 }

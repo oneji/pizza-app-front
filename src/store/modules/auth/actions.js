@@ -25,6 +25,5 @@ export default {
 
     logout({ commit }) {
         commit(mutationTypes.LOGOUT);
-        router.push({ name: 'home' });
     }
 }

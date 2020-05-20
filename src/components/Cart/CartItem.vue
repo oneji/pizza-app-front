@@ -16,7 +16,7 @@
                 @plus="$emit('plus', item.item_id)"
             />
 
-            <div class="cart-item--total-price">{{ item['total_price_' + currentCurrency] }} {{ currentCurrency === 'usd' ? ' $' : ' €' }}</div>
+            <div class="cart-item--total-price">{{ item['total_price_' + getCurrency] }} {{ getCurrency === 'usd' ? ' $' : ' €' }}</div>
 
             <v-btn fab small text color="error" @click="$emit('delete', item.item_id)">
                 <v-icon>delete</v-icon>
@@ -26,29 +26,28 @@
 </template>
 
 <script>
-    import QuantitySelector from './QuantitySelector'
+import QuantitySelector from './QuantitySelector'
+import { mapGetters } from 'vuex';
 
-    export default {
-        props: {
-            item:  Object
-        },
-        components: {
-            QuantitySelector
-        },
-        computed: {
-            currentCurrency() {
-                return this.$store.getters['cart/getCurrency'];
-            },
+export default {
+    props: {
+        item:  Object
+    },
+    components: {
+        QuantitySelector
+    },
+    computed: {
+        ...mapGetters('cart', [ 'getCurrency' ]),
 
-            pizzaImg() {
-                if(this.item.image !== null) {
-                    return process.env.VUE_APP_ASSETS_URL + '/' + this.item.image;
-                } else {
-                    return require('@/assets/img/no-pizza.png')
-                }
-            },
+        pizzaImg() {
+            if(this.item.image !== null) {
+                return process.env.VUE_APP_ASSETS_URL + '/' + this.item.image;
+            } else {
+                return require('@/assets/img/no-pizza.png')
+            }
         },
-    }
+    },
+}
 </script>
 
 <style lang="scss" scoped>

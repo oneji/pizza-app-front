@@ -3,7 +3,7 @@
         <template v-slot:activator="{ on }">
             <v-btn text dark v-on="on" class="hidden-xs-only mr-2">
                 <v-icon class="mr-2">credit_card</v-icon>
-                {{ currentCurrency }}
+                {{ getCurrency }}
             </v-btn>
             <v-btn text dark v-on="on" class="hidden-sm-and-up">
                 <v-icon>credit_card</v-icon>
@@ -14,7 +14,7 @@
                 v-for="item in items" 
                 :key="item.value" 
                 @click="changeCurrency(item.value)"
-                :disabled="currentCurrency === item.value"
+                :disabled="getCurrency === item.value"
             >
                 <v-list-item-title class="text-center">{{ item.text }}</v-list-item-title>
             </v-list-item>
@@ -23,11 +23,11 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+
     export default {
         computed: {
-            currentCurrency() {
-                return this.$store.getters['cart/getCurrency'];
-            },
+            ...mapGetters('cart', [ 'getCurrency' ])
         },
         data() {
             return {

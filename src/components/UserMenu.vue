@@ -14,7 +14,7 @@
                     </v-list-item-avatar>
 
                     <v-list-item-content>
-                        <v-list-item-title>{{ user.email }}</v-list-item-title>
+                        <v-list-item-title>{{ getUser.email }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -30,7 +30,7 @@
                         <v-list-item-title>Orders</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item @click="$store.dispatch('auth/logout')">
+                <v-list-item @click="logout">
                     <v-list-item-action>
                         <v-icon white>power_settings_new</v-icon>
                     </v-list-item-action>
@@ -44,13 +44,16 @@
 </template>
 
 <script>
-    export default {
-        computed: {
-            user() {
-                return this.$store.getters['auth/getUser'] || {};
-            }
-        }
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+    computed: {
+        ...mapGetters('auth', [ 'getUser' ])
+    },
+    methods: {
+        ...mapActions('auth', [ 'logout' ])
     }
+}
 </script>
 
 <style>

@@ -1,21 +1,21 @@
 <template>
     <v-snackbar 
         :timeout="3000"
-        :color="snackbar.color"
-        v-model="snackbar.active"
+        :color="getSnackbar.color"
+        v-model="getSnackbar.active"
         top>
-        {{ snackbar.text }}
+        {{ getSnackbar.text }}
     </v-snackbar>
 </template>
 
 <script>
-    export default {
-        computed: {
-            snackbar() {
-                return this.$store.getters['cart/getSnackbar'];
-            }
-        }
+import { mapGetters } from 'vuex'
+
+export default {
+    computed: {
+        ...mapGetters('cart', [ 'getSnackbar' ])
     }
+}
 </script>
 
 <style lang="scss" scoped>

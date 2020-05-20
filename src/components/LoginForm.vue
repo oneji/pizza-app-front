@@ -40,7 +40,7 @@
                     color="info" 
                     block 
                     type="submit"
-                    :loading="$store.getters['auth/getAuthLoadingState']"
+                    :loading="getAuthLoadingState"
                 >
                     Log in
                 </v-btn>
@@ -50,34 +50,39 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                showPassword: true,
-                email: '',
-                password: '',
-                emailRules: [
-                    v => !!v || 'E-mail is required',
-                    v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-                ],
-                passwordRules: [
-                    v => !!v || 'Password is required',
-                ],
-            }
-        },
-        methods: {
-            login() {
-                let validation = this.$refs.form.validate();
+import { mapGetters } from 'vuex'
 
-                if(validation) {
-                    this.$emit('login', {
-                        email: this.email,
-                        password: this.password
-                    });
-                }
+export default {
+    computed: {
+        ...mapGetters('auth', [ 'getAuthLoadingState' ])
+    },
+    data() {
+        return {
+            showPassword: true,
+            email: '',
+            password: '',
+            emailRules: [
+                v => !!v || 'E-mail is required',
+                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+            ],
+            passwordRules: [
+                v => !!v || 'Password is required',
+            ],
+        }
+    },
+    methods: {
+        login() {
+            let validation = this.$refs.form.validate();
+
+            if(validation) {
+                this.$emit('login', {
+                    email: this.email,
+                    password: this.password
+                });
             }
         }
     }
+}
 </script>
 
 <style lang="scss" scoped>

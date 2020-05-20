@@ -29,51 +29,55 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            item: {
-                type: Object,
-                required: true,
-            },
-            loading: {
-                type: Number,
-                default: false
-            }
-        },
-        computed: {
-            pizzaImg() {
-                if(this.item.image !== null) {
-                    return process.env.VUE_APP_ASSETS_URL + '/' + this.item.image;
-                } else {
-                    return require('@/assets/img/no-pizza.png')
-                }
-            },
-            currentCurrency() {
-                return this.$store.getters['cart/getCurrency'];
-            },
-            getMinPrice() {
-                let minPriceObj = this.item.pizza_sizes.filter(size => {
-                    return size.name.toLowerCase() === 'small'
-                })[0];
+import { mapGetters } from 'vuex'
 
-                if(minPriceObj === undefined) return 0;
-                
-                else {
-                    const currencyIcon = this.currentCurrency === 'usd' ? '$' : '€';
-                    
-                    return minPriceObj.pivot['price_' + this.currentCurrency] + currencyIcon;
-                }
+export default {
+    props: {
+        item: {
+            type: Object,
+            required: true,
+        },
+        loading: {
+            type: Number,
+            default: false
+        }
+    },
+    computed: {
+        ...mapGetters({
+            'currentCurrency': 'cart/getCurrency'
+        }),
+        pizzaImg() {
+            if(this.item.image !== null) {
+                return process.env.VUE_APP_ASSETS_URL + '/' + this.item.image;
+            } else {
+                return require('@/assets/img/no-pizza.png')
             }
         },
-        data: () => ({
-            size: undefined
-        }),
-        methods: {
-            addToCart() {
-                this.$emit('show-details', this.item.id);
-            },
+        getMinPrice() {
+            let minPriceObj = this.item.pizza_sizes.filter(size => {
+                return size.name.toLowerCase() === 'small'
+            })[0];
+
+            if(minPriceObj === undefined) return 0;
+            
+            else {
+                const currencyIcon = this.currentCurrency === 'usd' ? '$' : '€';
+                
+                return minPriceObj.pivot['price_' + this.currentCurrency] + currencyIcon;
+            }
         }
+    },
+    data(){
+        return {
+            size: undefined
+        }   
+    },
+    methods: {
+        addToCart() {
+            this.$emit('show-details', this.item.id);
+        },
     }
+}
 </script>
 
 <style lang="scss" scoped>

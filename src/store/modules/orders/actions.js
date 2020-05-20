@@ -3,7 +3,7 @@ import * as mutationTypes from './mutation-types'
 import router from '@/router/index'
 
 export default {
-    async getOrders({ commit }) {
+    async get({ commit }) {
         let { data } = await ordersService.getOrders();
 
         if(data.ok) {
