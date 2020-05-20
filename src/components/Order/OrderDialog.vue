@@ -94,7 +94,6 @@
 
                 if(valid) {
                     this.loading = true;
-                    console.log(this.totalPrice)
                     const orderItems = {
                         total_price_usd: this.totalPrice.usd,
                         total_price_euro: this.totalPrice.euro,
