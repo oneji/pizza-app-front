@@ -28,6 +28,7 @@
                                     block 
                                     color="success" 
                                     @click="addToCart"
+                                    class="add-btn"
                                 >
                                     Add to cart
                                 </v-btn>
@@ -52,7 +53,15 @@ import { mapGetters } from 'vuex'
 export default {
     props: {
         show: Boolean,
-        pizza: Object
+        pizza: {
+            type: Object,
+            default: () => {
+                return {
+                    image: null,
+                    name: ''
+                }
+            }
+        }
     },
     components: {
         PizzaDetailsCloseBtn,
@@ -109,18 +118,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    
 
-    .loading {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 999;
-        background-color: rgba(255, 255, 255, .8);
-    }
 </style>

@@ -2,25 +2,27 @@
     <div class="login-page-container">
         <v-row>
             <v-col sm="6" md="6" lg="4" xl="4" offset-sm="3" offset-md="3" offset-lg="4" offset-xl="4">
-                <LoginForm @login="login" />
+                <LoginForm @login="handleLogin" />
             </v-col>
         </v-row>
     </div>
 </template>
 
 <script>
-    import LoginForm from '@/components/LoginForm'
+import LoginForm from '@/components/LoginForm'
+import { mapActions } from 'vuex';
 
-    export default {
-        components: {
-            LoginForm
-        },
-        methods: {
-            login(credentials) {
-                this.$store.dispatch('auth/login', credentials);
-            }
+export default {
+    components: {
+        LoginForm
+    },
+    methods: {
+        ...mapActions('auth', [ 'login' ]),
+        handleLogin(credentials) {
+            this.login(credentials);
         }
     }
+}
 </script>
 
 <style lang="scss" scoped>

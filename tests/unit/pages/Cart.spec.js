@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
-import { shallowMount, createLocalVue } from '@vue/test-utils'
-import Cart from '@/pages/Cart';
-
+import { shallowMount } from '@vue/test-utils'
+import Cart from '@/pages/Cart'
 
 describe('Cart.vue', () => {
     let getters

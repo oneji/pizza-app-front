@@ -11,7 +11,7 @@ describe('Loading.vue', () => {
         });
     });
 
-    it('renders', () => {
+    it('Renders', () => {
         expect(wrapper.exists()).toBe(true);
     });
 });

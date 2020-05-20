@@ -49,11 +49,14 @@ export default {
         showOrderDetails(orderItem) {
             this.orderDetailsObj = orderItem;
             this.showDetails = true;
+        },
+        getAll() {
+            this.loading = true;
+            this.get().then(() => this.loading = false);
         }
     },
     created() {
-        this.loading = true;
-        this.get().then(() => this.loading = false);
+        this.getAll();
     }
 }
 </script>

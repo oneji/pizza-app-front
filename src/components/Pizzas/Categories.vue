@@ -17,16 +17,17 @@
 
 <script>
 import { mapGetters } from 'vuex';
-    export default {
-        computed: {
-            ...mapGetters('pizzas', [ 'getCategories' ])
-        },
-        data() {
-            return {
-                chosen: 0
-            }
+
+export default {
+    computed: {
+        ...mapGetters('pizzas', [ 'getCategories' ])
+    },
+    data() {
+        return {
+            chosen: 0
         }
     }
+}
 </script>
 
 <style lang="scss" scoped>

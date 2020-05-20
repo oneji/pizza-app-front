@@ -1,6 +1,6 @@
 <template>
-    <div class="close-btn">
-        <v-btn icon color="primary" @click="$emit('close')">
+    <div class="close-btn-wrapper">
+        <v-btn icon color="primary" class="close-btn" @click="$emit('close')">
             <v-icon>close</v-icon>
         </v-btn>
     </div>
@@ -13,7 +13,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .close-btn {
+    .close-btn-wrapper {
         position: absolute;
         top: 0;
         right: 0;
