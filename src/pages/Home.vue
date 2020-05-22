@@ -7,7 +7,7 @@
             </v-col>
         </v-row>
 
-        <v-row>
+        <v-row v-if="getPizzas.length > 0">
             <v-col v-for="pizza in getPizzas" :key="pizza.id" sm="6" md="3" lg="3">
                 <Pizza 
                     :item="pizza"
@@ -16,6 +16,8 @@
                 />
             </v-col>
         </v-row>
+
+        <NoPizza v-else />
 
         <PizzaDetailsDialog
             :pizza="pizza"
@@ -30,6 +32,8 @@ import Loading from '@/components/Loading'
 import Categories from '@/components/Pizzas/Categories'
 import Pizza from '@/components/Pizzas/Pizza'
 import PizzaDetailsDialog from '@/components/PizzaDetails/PizzaDetailsDialog'
+import NoPizza from '@/components/Pizzas/NoPizza'
+
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -37,7 +41,8 @@ export default {
         Loading,
         Categories,
         Pizza,
-        PizzaDetailsDialog
+        PizzaDetailsDialog,
+        NoPizza
     },
     computed: {
         ...mapGetters({
