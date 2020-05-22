@@ -8,6 +8,7 @@ describe('Home.vue', () => {
     let getters
     let actions
     let store
+    let wrapper
 
     let getPizzasMethod = jest.fn()
 
@@ -32,16 +33,20 @@ describe('Home.vue', () => {
                 }
             }
         })
+
+        wrapper = shallowMount(Home, {
+            store,
+            methods: {
+                getAll: getPizzasMethod
+            }
+        });
     });
 
     it('Renders', () => {
-        const wrapper = shallowMount(Home, {
-            store,
-            methods: {
-                getAllPizzas: getPizzasMethod
-            }
-        });
-
         expect(wrapper.exists()).toBe(true);
+    });
+
+    it('Fires the "getAllPizzas" method when mounted', () => {
+        expect(getPizzasMethod).toHaveBeenCalled();
     });
 })

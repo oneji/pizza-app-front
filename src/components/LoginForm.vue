@@ -9,6 +9,17 @@
         </v-responsive> 
                             
         <v-card-text>
+            <v-alert
+                dense
+                outlined
+                color="error"
+                transition="scale-transition"
+                v-if="getAuthError.error"
+                class="mb-2"
+            >
+                {{ getAuthError.errorMessage }}
+            </v-alert>
+
             <v-form 
                 @submit.prevent="login"
                 ref="form"
@@ -54,7 +65,7 @@ import { mapGetters } from 'vuex'
 
 export default {
     computed: {
-        ...mapGetters('auth', [ 'getAuthLoadingState' ])
+        ...mapGetters('auth', [ 'getAuthLoadingState', 'getAuthError' ])
     },
     data() {
         return {

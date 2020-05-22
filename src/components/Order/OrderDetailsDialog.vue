@@ -21,7 +21,7 @@
                                     </v-list-item-content>
 
                                     <v-list-item-action>
-                                        <v-btn fab small text color="primary">{{ pizza.quantity }}</v-btn>
+                                        <v-badge color="primary" :content="pizza.quantity"></v-badge>
                                     </v-list-item-action>
                                 </v-list-item>
                             </v-list>

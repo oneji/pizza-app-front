@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- <Loading :show="loading"/> -->
+        <Loading :show="loading"/>
         <v-row>
             <v-col sm="8" md="9" lg="9">
                 <Categories @change="getPizzaByCategory" />
@@ -77,10 +77,16 @@ export default {
                 this.showPD = true;
                 this.PDloading = null;
             });
+        },
+        getAll() {
+            this.loading = true;
+            this.getAllPizzas().then(() => {
+                this.loading = false;
+            });
         }
     },
     mounted() {
-        this.getAllPizzas();
+        this.getAll();
     }
 }
 </script>
