@@ -12,6 +12,16 @@
             <v-alert
                 dense
                 outlined
+                color="primary"
+                transition="scale-transition"
+                class="mb-2"
+            >
+                <strong>Email:</strong> admin@admin.com <br>
+                <strong>Password:</strong> 123456
+            </v-alert>
+            <v-alert
+                dense
+                outlined
                 color="error"
                 transition="scale-transition"
                 v-if="getAuthError.error"
