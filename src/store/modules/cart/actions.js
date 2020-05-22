@@ -59,8 +59,6 @@ export default {
     async order({ commit }, orderItems) {
         let { data } = await cartService.order(orderItems);
 
-        console.log(data);
-
         if(data.ok) {
             commit(mutationTypes.SET_CART, []);
             localStorage.removeItem('p_cart');

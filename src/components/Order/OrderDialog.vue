@@ -100,8 +100,6 @@ export default {
                     orderItems: JSON.parse(localStorage.getItem('p_cart')) || []
                 }
 
-                console.log(orderItems)
-
                 this.order(orderItems)
                     .then(() => {
                         this.$emit('close');
